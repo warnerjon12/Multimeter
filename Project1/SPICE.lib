@@ -41,6 +41,18 @@ XC 10 9 8 4 11 opamp2
 XD 12 13 14 4 11 opamp2
 .ends
 
+* out1 in1- in1+ vdd in2+ in2- out2 vcc
+.subckt lm358 1 2 3 4 5 6 7 8
+XA 3 2 1 8 4 opamp2
+XB 5 6 7 8 4 opamp2
+.ends
+
+* Potentiometer
+.subckt rpot 1 2 3 k=0.5 R=100k
+R1 1 2 R='(1-k)*R'
+R2 2 3 R='k*R'
+.ends
+
 * SPDT switch
 * throw pole throw
 .subckt sw_spdt 1 2 3
