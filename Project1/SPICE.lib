@@ -1,0 +1,64 @@
+* Mostly ideal op amp
+* in+ in- out vcc vdd
+.subckt opamp 1 2 3 4 5 vos=1m
+RG1 4 0 10Meg
+RG2 5 0 10Meg
+Rin 1 2 10G
+Cin 1 2 100pF
+Rout 6 0 0.1
+* Ignores power rails (more ideal)
+Bout 3 6 v={100k*v(1,2)}
+* Has less amplification for low voltages and approaches supply voltages
+* Bout 3 6 v={(v(4)+v(5))/2+v(4,5)*atan(100k*(v(1,2)-vos))/pi}
+.ends
+
+* Better op amp
+* in+ in- out vcc vdd
+.subckt opamp2 1 2 3 4 5 vos=3m Aol=200k B1=3Meg sr=13Meg
+Rin 1 2 10G
+Cin 1 2 100pF
+Bos 20 2 V='vos'
+
+B1 0 10 I='tanh((6.283185*B1/sr)*V(1, 20))'
+R1 10 0 R='Aol*sr/(6.283185*B1)'
+C1 10 0 C='1/sr'
+
+DP 10 11 DIODE
+VP 4 11 1.5
+DN 12 10 DIODE
+VN 12 5 1.5
+
+Eout 6 0 10 0 1
+Rout 6 3 0.1
+.ends
+
+* out1 in1- in1+ vcc in2+ in2- out2
+* out3 in3- in3+ vdd in4+ in4- out4
+.subckt lm324 1 2 3 4 5 6 7 8 9 10 11 12 13 14
+XA 3 2 1 4 11 opamp2
+XB 5 6 7 4 11 opamp2
+XC 10 9 8 4 11 opamp2
+XD 12 13 14 4 11 opamp2
+.ends
+
+* SPDT switch
+* throw pole throw
+.subckt sw_spdt 1 2 3
+R1 1 2 R={time < 1ms ? 10Meg : 1m}
+R2 2 3 R={time < 1ms ? 1m : 10Meg}
+R3 1 3 100Meg
+.ends
+
+.subckt Lcoupled 1 2 3 4
+L1 1 2 100nH
+L2 3 4 100nH
+K12 L1 L2 0.98
+.ends
+
+* Diode Bridge  + - ~ ~
+.subckt DBridge 1 2 3 4
+D1 2 3 DIODE
+D2 2 4 DIODE
+D3 3 1 DIODE
+D4 4 1 DIODE
+.ends
