@@ -148,3 +148,10 @@ Q3 2 2 9 QP
 + BR=4 NR=1 VAR=16 IKR=45M RE=1.03 RB=4.12 RC=.412 XTB=1.5
 + CJE=12.4P VJE=1.1 MJE=.5 CJC=4.02P VJC=.3 MJC=.3 TF=229P TR=959P)
 .ENDS
+
+* Power header
+.subckt pwrhdr 1 2 3 4
+VCC 1 3 5
+VDD 2 3 3.3
+VEE 3 4 5
+.ends
