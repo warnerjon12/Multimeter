@@ -240,7 +240,7 @@
         )
       )
     )
-    (symbol "Project1:CD4007" (in_bom yes) (on_board yes)
+    (symbol "Multimeter:CD4007" (in_bom yes) (on_board yes)
       (property "Reference" "U" (id 0) (at 3.81 12.7 0)
         (effects (font (size 1.27 1.27)))
       )
@@ -895,7 +895,7 @@
     (pin "8" (uuid 97d8cb9c-7796-4f3e-9cd3-d41043b797fa))
   )
 
-  (symbol (lib_id "Project1:CD4007") (at 158.75 78.74 0) (unit 1)
+  (symbol (lib_id "Multimeter:CD4007") (at 158.75 78.74 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 8412036a-3ea2-4b74-8181-b678e28b9823)
     (property "Reference" "U3" (id 0) (at 158.75 63.4705 0))
